@@ -27,8 +27,8 @@ class AuthController extends Controller
         $request->session()->regenerate();
 
         return Auth::user()->role === 'admin'
-            ? redirect()->route('admin.dashboard')
-            : redirect()->route('user.dashboard');
+            ? redirect('admin/dashboard')
+            : redirect('utilisateur');
     }
 
     public function showRegister()
@@ -49,7 +49,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('user.dashboard');
+        return redirect('utilisateur');
     }
 
     public function logout(Request $request)
