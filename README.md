@@ -1,19 +1,20 @@
 # Bibliothèque Laravel V1
 
-Application de gestion de bibliothèque (Laravel 12 + MySQL).
+Application de gestion de bibliothèque (Laravel 12 + MySQL), avec séparation **Admin / Utilisateur**.
 
 ## Fonctionnalités
-- Tableau de bord (livres, adhérents, emprunts actifs, retards)
-- CRUD auteurs
-- CRUD catégories
-- CRUD livres (stock total/disponible)
-- CRUD adhérents
-- Gestion des emprunts/retours
+- Authentification (connexion / inscription)
+- Rôles:
+  - **Admin**: gestion complète (auteurs, catégories, livres, adhérents, emprunts/retours)
+  - **Utilisateur**: page dédiée avec consultation catalogue + emprunts en cours
+- Tableau de bord admin (livres, adhérents, emprunts actifs, retards)
+- CRUD Auteurs / Catégories / Livres / Adhérents / Emprunts
+- Gestion des retours via l’édition des emprunts (`returned_at`)
 - Seed de données de démo
 
-## Prérequis
+## Stack
 - PHP 8.3+
-- Composer
+- Laravel 12
 - MySQL 8+
 
 ## Installation
@@ -23,13 +24,7 @@ composer install
 php artisan key:generate
 ```
 
-Créer la base MySQL `bibliotheque_laravel_v1`, puis:
-```bash
-php artisan migrate --seed
-php artisan serve
-```
-
-## Configuration DB (.env)
+Configurer la base dans `.env`:
 ```env
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
@@ -39,5 +34,28 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
+Créer la base MySQL `bibliotheque_laravel_v1`, puis:
+```bash
+php artisan migrate --seed
+php artisan serve
+```
+
+## Accès
+- URL: `http://127.0.0.1:8000/login`
+
+Comptes de démo (créés par le seeder):
+- **Admin**
+  - Email: `admin@biblio.local`
+  - Mot de passe: `password`
+- **Utilisateur**
+  - Email: `user@biblio.local`
+  - Mot de passe: `password`
+
+## Routes utiles
+- `/login` (connexion)
+- `/register` (inscription utilisateur)
+- `/admin/dashboard` (admin)
+- `/utilisateur` (espace utilisateur)
+
 ## Repo
-Le projet est prêt pour push GitHub.
+<https://github.com/Jesuiskoriel/bibliotheque-laravel-v1>

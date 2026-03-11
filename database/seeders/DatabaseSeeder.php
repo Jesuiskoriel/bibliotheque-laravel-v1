@@ -7,6 +7,7 @@ use App\Models\Book;
 use App\Models\Category;
 use App\Models\Member;
 use Illuminate\Database\Seeder;
+use App\Models\User;
 
 class DatabaseSeeder extends Seeder
 {
@@ -40,5 +41,19 @@ class DatabaseSeeder extends Seeder
 
         Member::create(['first_name' => 'Jean', 'last_name' => 'Dupont', 'email' => 'jean@example.com', 'phone' => '0600000001']);
         Member::create(['first_name' => 'Lina', 'last_name' => 'Martin', 'email' => 'lina@example.com', 'phone' => '0600000002']);
+
+        User::create([
+            'name' => 'Admin',
+            'email' => 'admin@biblio.local',
+            'password' => 'password',
+            'role' => 'admin',
+        ]);
+
+        User::create([
+            'name' => 'Utilisateur Demo',
+            'email' => 'user@biblio.local',
+            'password' => 'password',
+            'role' => 'user',
+        ]);
     }
 }

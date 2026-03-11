@@ -1,16 +1,35 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoanController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\UserDashboardController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', DashboardController::class)->name('dashboard');
-Route::resource('authors', AuthorController::class)->except(['show']);
-Route::resource('categories', CategoryController::class)->except(['show']);
-Route::resource('books', BookController::class)->except(['show']);
-Route::resource('members', MemberController::class)->except(['show']);
-Route::resource('loans', LoanController::class)->except(['show']);
+Route::redirect('/', '/login');
+
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+    Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+    Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+    Route::post('/register', [AuthController::class, 'register'])->name('register.post');
+});
+
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
+
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
+    Route::get('/dashboard', DashboardController::class)->name('admin.dashboard');
+    Route::resource('authors', AuthorController::class)->except(['show']);
+    Route::resource('categories', CategoryController::class)->except(['show']);
+    Route::resource('books', BookController::class)->except(['show']);
+    Route::resource('members', MemberController::class)->except(['show']);
+    Route::resource('loans', LoanController::class)->except(['show']);
+});
+
+Route::middleware(['auth', 'role:user'])->group(function () {
+    Route::get('/utilisateur', UserDashboardController::class)->name('user.dashboard');
+});
