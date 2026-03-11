@@ -1,0 +1,27 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration {
+    public function up(): void
+    {
+        Schema::create('books', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->string('isbn')->unique();
+            $table->unsignedInteger('published_year')->nullable();
+            $table->unsignedInteger('stock_total')->default(1);
+            $table->unsignedInteger('stock_available')->default(1);
+            $table->foreignId('author_id')->constrained()->cascadeOnUpdate()->restrictOnDelete();
+            $table->foreignId('category_id')->constrained()->cascadeOnUpdate()->restrictOnDelete();
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('books');
+    }
+};
