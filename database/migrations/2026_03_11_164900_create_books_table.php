@@ -1,5 +1,5 @@
 <?php
-/* METAL-EXPLAIN: Ce fichier fait une partie du boulot de l'app bibliothèque. 
+/* Ce fichier fait une partie du boulot de l'app bibliothèque. 
  * Version simple: ce fichier sert à éviter que tout parte en spaghetti .
  * Lisez les fonctions une par une: chacune fait un mini boulot précis.
  */
@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
     /**
-     * EXPLAIN-FUNC: Migration UP = crée/ajoute la structure dans la base de données.
+     * Migration UP = crée/ajoute la structure dans la base de données.
      */
     public function up(): void
     {
@@ -28,7 +28,7 @@ return new class extends Migration {
     }
 
     /**
-     * EXPLAIN-FUNC: Migration DOWN = annule ce que UP a fait (rollback).
+     * Migration DOWN = annule ce que UP a fait (rollback).
      */
     public function down(): void
     {

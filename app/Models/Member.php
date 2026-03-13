@@ -1,5 +1,5 @@
 <?php
-/* METAL-EXPLAIN: Ce fichier fait une partie du boulot de l'app bibliothèque. 
+/* Ce fichier fait une partie du boulot de l'app bibliothèque. 
  * Version simple: ce fichier sert à éviter que tout parte en spaghetti .
  * Lisez les fonctions une par une: chacune fait un mini boulot précis.
  */
@@ -17,7 +17,7 @@ class Member extends Model
     protected $fillable = ['first_name', 'last_name', 'email', 'phone'];
 
     /**
-     * EXPLAIN-FUNC: Cette fonction 'loans' fait une étape précise du flux applicatif.
+     * Cette fonction 'loans' fait une étape précise du flux applicatif.
      */
     public function loans(): HasMany
     {
@@ -25,7 +25,7 @@ class Member extends Model
     }
 
     /**
-     * EXPLAIN-FUNC: Cette fonction 'getFullNameAttribute' fait une étape précise du flux applicatif.
+     * Cette fonction 'getFullNameAttribute' fait une étape précise du flux applicatif.
      */
     public function getFullNameAttribute(): string
     {

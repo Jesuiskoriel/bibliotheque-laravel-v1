@@ -1,5 +1,5 @@
 <?php
-/* METAL-EXPLAIN: Ce fichier fait une partie du boulot de l'app bibliothèque. 
+/* Ce fichier fait une partie du boulot de l'app bibliothèque. 
  * Version simple: ce fichier sert à éviter que tout parte en spaghetti .
  * Lisez les fonctions une par une: chacune fait un mini boulot précis.
  */
@@ -20,7 +20,7 @@ class Book extends Model
     ];
 
     /**
-     * EXPLAIN-FUNC: Cette fonction 'author' fait une étape précise du flux applicatif.
+     * Cette fonction 'author' fait une étape précise du flux applicatif.
      */
     public function author(): BelongsTo
     {
@@ -28,7 +28,7 @@ class Book extends Model
     }
 
     /**
-     * EXPLAIN-FUNC: Cette fonction 'category' fait une étape précise du flux applicatif.
+     * Cette fonction 'category' fait une étape précise du flux applicatif.
      */
     public function category(): BelongsTo
     {
@@ -36,7 +36,7 @@ class Book extends Model
     }
 
     /**
-     * EXPLAIN-FUNC: Cette fonction 'loans' fait une étape précise du flux applicatif.
+     * Cette fonction 'loans' fait une étape précise du flux applicatif.
      */
     public function loans(): HasMany
     {

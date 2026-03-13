@@ -1,4 +1,4 @@
-﻿{{-- METAL-EXPLAIN: Cette vue affiche l'interface. 
+﻿{{-- Cette vue affiche l'interface. 
    Version simple: ce fichier dessine l'Ã©cran que l'utilisateur voit. --}}
 @extends('layouts.app')
 @section('content')

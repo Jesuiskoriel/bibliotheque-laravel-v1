@@ -1,5 +1,5 @@
 <?php
-/* METAL-EXPLAIN: Ce fichier fait une partie du boulot de l'app bibliothèque. 
+/* Ce fichier fait une partie du boulot de l'app bibliothèque. 
  * Version simple: ce fichier sert à éviter que tout parte en spaghetti .
  * Lisez les fonctions une par une: chacune fait un mini boulot précis.
  */
@@ -12,16 +12,16 @@ use Illuminate\Http\Request;
 class MemberController extends Controller
 {
     /**
-     * EXPLAIN-FUNC: Affiche la liste des éléments (page liste).
+     * Affiche la liste des éléments (page liste).
      */
     public function index() { return view('members.index', ['members' => Member::latest()->paginate(10)]); }
     /**
-     * EXPLAIN-FUNC: Affiche le formulaire pour créer un nouvel élément.
+     * Affiche le formulaire pour créer un nouvel élément.
      */
     public function create() { return view('members.create'); }
 
     /**
-     * EXPLAIN-FUNC: Vérifie les données envoyées puis enregistre en base.
+     * Vérifie les données envoyées puis enregistre en base.
      */
     public function store(Request $request)
     {
@@ -36,12 +36,12 @@ class MemberController extends Controller
     }
 
     /**
-     * EXPLAIN-FUNC: Ouvre le formulaire d'édition avec les données existantes.
+     * Ouvre le formulaire d'édition avec les données existantes.
      */
     public function edit(Member $member) { return view('members.edit', compact('member')); }
 
     /**
-     * EXPLAIN-FUNC: Vérifie les nouvelles données puis met à jour la base.
+     * Vérifie les nouvelles données puis met à jour la base.
      */
     public function update(Request $request, Member $member)
     {
@@ -56,7 +56,7 @@ class MemberController extends Controller
     }
 
     /**
-     * EXPLAIN-FUNC: Supprime l'élément demandé (ou le marque supprimé).
+     * Supprime l'élément demandé (ou le marque supprimé).
      */
     public function destroy(Member $member)
     {

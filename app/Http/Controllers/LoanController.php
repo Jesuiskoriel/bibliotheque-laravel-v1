@@ -1,5 +1,5 @@
 <?php
-/* METAL-EXPLAIN: Ce contrôleur gère les emprunts. Version V2: la logique métier part dans LoanService. */
+/* Ce contrôleur gère les emprunts. Version V2: la logique métier part dans LoanService. */
 
 namespace App\Http\Controllers;
 
@@ -16,14 +16,14 @@ class LoanController extends Controller
     {
     }
 
-    /** EXPLAIN-FUNC: Affiche la liste des emprunts. */
+    /** Affiche la liste des emprunts. */
     public function index()
     {
         $loans = Loan::with(['book', 'member'])->latest('loaned_at')->paginate(12);
         return view('loans.index', compact('loans'));
     }
 
-    /** EXPLAIN-FUNC: Affiche le formulaire de création d'un emprunt. */
+    /** Affiche le formulaire de création d'un emprunt. */
     public function create()
     {
         return view('loans.create', [
@@ -32,7 +32,7 @@ class LoanController extends Controller
         ]);
     }
 
-    /** EXPLAIN-FUNC: Valide puis crée l'emprunt via le service métier. */
+    /** Valide puis crée l'emprunt via le service métier. */
     public function store(StoreLoanRequest $request)
     {
         $this->loanService->createLoan($request->validated());
@@ -40,7 +40,7 @@ class LoanController extends Controller
         return redirect()->route('loans.index')->with('success', 'Emprunt enregistré.');
     }
 
-    /** EXPLAIN-FUNC: Affiche le formulaire d'édition d'un emprunt. */
+    /** Affiche le formulaire d'édition d'un emprunt. */
     public function edit(Loan $loan)
     {
         return view('loans.edit', [
@@ -50,7 +50,7 @@ class LoanController extends Controller
         ]);
     }
 
-    /** EXPLAIN-FUNC: Valide puis met à jour via le service métier. */
+    /** Valide puis met à jour via le service métier. */
     public function update(UpdateLoanRequest $request, Loan $loan)
     {
         $this->loanService->updateLoan($loan, $request->validated());
@@ -58,7 +58,7 @@ class LoanController extends Controller
         return redirect()->route('loans.index')->with('success', 'Emprunt mis à jour.');
     }
 
-    /** EXPLAIN-FUNC: Supprime l'emprunt via le service métier. */
+    /** Supprime l'emprunt via le service métier. */
     public function destroy(Loan $loan)
     {
         $this->loanService->deleteLoan($loan);

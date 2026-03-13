@@ -1,5 +1,5 @@
 <?php
-/* METAL-EXPLAIN: Ce fichier fait une partie du boulot de l'app bibliothèque. 
+/* Ce fichier fait une partie du boulot de l'app bibliothèque. 
  * Version simple: ce fichier sert à éviter que tout parte en spaghetti .
  * Lisez les fonctions une par une: chacune fait un mini boulot précis.
  */
@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
     /**
-     * EXPLAIN-FUNC: Cette fonction 'showLogin' fait une étape précise du flux applicatif.
+     * Cette fonction 'showLogin' fait une étape précise du flux applicatif.
      */
     public function showLogin()
     {
@@ -21,7 +21,7 @@ class AuthController extends Controller
     }
 
     /**
-     * EXPLAIN-FUNC: Vérifie email/mot de passe puis ouvre la session utilisateur.
+     * Vérifie email/mot de passe puis ouvre la session utilisateur.
      */
     public function login(Request $request)
     {
@@ -42,7 +42,7 @@ class AuthController extends Controller
     }
 
     /**
-     * EXPLAIN-FUNC: Cette fonction 'showRegister' fait une étape précise du flux applicatif.
+     * Cette fonction 'showRegister' fait une étape précise du flux applicatif.
      */
     public function showRegister()
     {
@@ -50,7 +50,7 @@ class AuthController extends Controller
     }
 
     /**
-     * EXPLAIN-FUNC: Crée un nouveau compte utilisateur avec validation.
+     * Crée un nouveau compte utilisateur avec validation.
      */
     public function register(Request $request)
     {
@@ -69,7 +69,7 @@ class AuthController extends Controller
     }
 
     /**
-     * EXPLAIN-FUNC: Ferme la session en cours pour déconnecter l'utilisateur.
+     * Ferme la session en cours pour déconnecter l'utilisateur.
      */
     public function logout(Request $request)
     {

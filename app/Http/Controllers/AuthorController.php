@@ -1,5 +1,5 @@
 <?php
-/* METAL-EXPLAIN: Ce fichier fait une partie du boulot de l'app bibliothèque. 
+/* Ce fichier fait une partie du boulot de l'app bibliothèque. 
  * Version simple: ce fichier sert à éviter que tout parte en spaghetti .
  * Lisez les fonctions une par une: chacune fait un mini boulot précis.
  */
@@ -12,16 +12,16 @@ use Illuminate\Http\Request;
 class AuthorController extends Controller
 {
     /**
-     * EXPLAIN-FUNC: Affiche la liste des éléments (page liste).
+     * Affiche la liste des éléments (page liste).
      */
     public function index() { return view('authors.index', ['authors' => Author::latest()->paginate(10)]); }
     /**
-     * EXPLAIN-FUNC: Affiche le formulaire pour créer un nouvel élément.
+     * Affiche le formulaire pour créer un nouvel élément.
      */
     public function create() { return view('authors.create'); }
 
     /**
-     * EXPLAIN-FUNC: Vérifie les données envoyées puis enregistre en base.
+     * Vérifie les données envoyées puis enregistre en base.
      */
     public function store(Request $request)
     {
@@ -31,12 +31,12 @@ class AuthorController extends Controller
     }
 
     /**
-     * EXPLAIN-FUNC: Ouvre le formulaire d'édition avec les données existantes.
+     * Ouvre le formulaire d'édition avec les données existantes.
      */
     public function edit(Author $author) { return view('authors.edit', compact('author')); }
 
     /**
-     * EXPLAIN-FUNC: Vérifie les nouvelles données puis met à jour la base.
+     * Vérifie les nouvelles données puis met à jour la base.
      */
     public function update(Request $request, Author $author)
     {
@@ -46,7 +46,7 @@ class AuthorController extends Controller
     }
 
     /**
-     * EXPLAIN-FUNC: Supprime l'élément demandé (ou le marque supprimé).
+     * Supprime l'élément demandé (ou le marque supprimé).
      */
     public function destroy(Author $author)
     {
