@@ -1,30 +1,31 @@
-﻿# BibliothÃ¨que Laravel V1
+# Bibliothèque Laravel V1
 
-Application de gestion de bibliothÃ¨que (Laravel 12 + MySQL), avec sÃ©paration **Admin / Utilisateur**.
+Application de gestion de bibliothèque (Laravel 12 + MySQL), avec séparation **Admin / Utilisateur**.
 
-## FonctionnalitÃ©s
+## Fonctionnalités
 - Authentification (connexion / inscription)
-- RÃ´les:
-  - **Admin**: gestion complÃ¨te (auteurs, catÃ©gories, livres, adhÃ©rents, emprunts/retours)
-  - **Utilisateur**: page dÃ©diÃ©e avec consultation catalogue + emprunts en cours
-- Tableau de bord admin (livres, adhÃ©rents, emprunts actifs, retards)
-- CRUD Auteurs / CatÃ©gories / Livres / AdhÃ©rents / Emprunts
-- Gestion des retours via lâ€™Ã©dition des emprunts (`returned_at`)
-- Seed de donnÃ©es de dÃ©mo
+- Rôles :
+  - **Admin** : gestion complète (auteurs, catégories, livres, adhérents, emprunts/retours)
+  - **Utilisateur** : page dédiée avec consultation du catalogue + emprunts en cours
+- Tableau de bord admin (livres, adhérents, emprunts actifs, retards)
+- CRUD Auteurs / Catégories / Livres / Adhérents / Emprunts
+- Gestion des retours via l’édition des emprunts (`returned_at`)
+- Données de démonstration via seeder
 
-## Architecture V2 (plus simple Ã  comprendre)
-Le projet suit une logique claire:
-1. **Route** â†’ reÃ§oit l'URL
-2. **Contrôleur** â†’ orchestre l'action
-3. **Requête de formulaire** â†’ valide les donnÃ©es utilisateur
-4. **Service** â†’ applique la logique mÃ©tier
-5. **Modèle** â†’ lit/Ã©crit en base MySQL
-6. **Vue Blade** â†’ affiche Ã  l'Ã©cran
+## Architecture V2 (plus simple à comprendre)
+Le projet suit une logique claire :
+
+1. **Route** -> reçoit l’URL
+2. **Contrôleur** -> orchestre l’action
+3. **Requête de formulaire** -> valide les données utilisateur
+4. **Service** -> applique la logique métier
+5. **Modèle** -> lit/écrit en base MySQL
+6. **Vue Blade** -> affiche à l’écran
 
 ### Exemple concret
-- `StoreLoanRequest` et `UpdateLoanRequest` valident les formulaires d'emprunt.
-- `LoanService` gÃ¨re les rÃ¨gles mÃ©tier (stock, retour, suppression).
-- `LoanContrôleur` reste lisible et court.
+- `StoreLoanRequest` et `UpdateLoanRequest` valident les formulaires d’emprunt.
+- `LoanService` gère les règles métier (stock, retour, suppression).
+- `LoanController` reste lisible et court.
 
 ## Technologies
 - PHP 8.3+
@@ -38,7 +39,7 @@ composer install
 php artisan key:generate
 ```
 
-Configurer la base dans `.env`:
+Configurer la base dans `.env` :
 ```env
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
@@ -48,22 +49,22 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-CrÃ©er la base MySQL `bibliotheque_laravel_v1`, puis:
+Créer la base MySQL `bibliotheque_laravel_v1`, puis :
 ```bash
 php artisan migrate --seed
 php artisan serve
 ```
 
-## AccÃ¨s
-- URL: `http://127.0.0.1:8000/login`
+## Accès
+- URL : `http://127.0.0.1:8000/login`
 
-Comptes de dÃ©mo (crÃ©Ã©s par le seeder):
+Comptes de démonstration (créés par le seeder) :
 - **Admin**
-  - Email: `admin@biblio.local`
-  - Mot de passe: `password`
+  - Email : `admin@biblio.local`
+  - Mot de passe : `password`
 - **Utilisateur**
-  - Email: `user@biblio.local`
-  - Mot de passe: `password`
+  - Email : `user@biblio.local`
+  - Mot de passe : `password`
 
 ## Routes utiles
 - `/login` (connexion)
@@ -73,4 +74,3 @@ Comptes de dÃ©mo (crÃ©Ã©s par le seeder):
 
 ## Repo
 <https://github.com/Jesuiskoriel/bibliotheque-laravel-v1>
-
