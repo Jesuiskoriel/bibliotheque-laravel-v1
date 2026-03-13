@@ -1,11 +1,11 @@
-{{-- METAL-EXPLAIN: Cette vue affiche l'interface. 
-   Version simple: ce fichier dessine l'écran que l'utilisateur voit. --}}
+﻿{{-- METAL-EXPLAIN: Cette vue affiche l'interface. 
+   Version simple: ce fichier dessine l'Ã©cran que l'utilisateur voit. --}}
 <!doctype html>
 <html lang="fr">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>BibliothÃ¨que Manager</title>
+    <title>BibliothÃƒÂ¨que Manager</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body { background:#f4f7fb; }
@@ -21,17 +21,17 @@
     <div class="row">
         @auth
             <aside class="col-lg-2 col-md-3 sidebar p-3">
-                <div class="text-white fw-bold mb-3">ðŸ“š BibliothÃ¨que</div>
+                <div class="text-white fw-bold mb-3">Ã°Å¸â€œÅ¡ BibliothÃƒÂ¨que</div>
                 <div class="nav flex-column gap-1">
-                    @if(auth()->user()->role === 'admin')
-                        <a class="nav-link" href="{{ route('admin.dashboard') }}">Dashboard</a>
+                    @if(auth()->Utilisateur()->role === 'admin')
+                        <a class="nav-link" href="{{ route('admin.Tableau de bord') }}">Tableau de bord</a>
                         <a class="nav-link" href="{{ route('books.index') }}">Livres</a>
                         <a class="nav-link" href="{{ route('authors.index') }}">Auteurs</a>
-                        <a class="nav-link" href="{{ route('categories.index') }}">CatÃ©gories</a>
-                        <a class="nav-link" href="{{ route('members.index') }}">AdhÃ©rents</a>
+                        <a class="nav-link" href="{{ route('categories.index') }}">CatÃƒÂ©gories</a>
+                        <a class="nav-link" href="{{ route('members.index') }}">AdhÃƒÂ©rents</a>
                         <a class="nav-link" href="{{ route('loans.index') }}">Emprunts/Retours</a>
                     @else
-                        <a class="nav-link" href="{{ route('user.dashboard') }}">Espace utilisateur</a>
+                        <a class="nav-link" href="{{ route('Utilisateur.Tableau de bord') }}">Espace utilisateur</a>
                     @endif
                 </div>
             </aside>
@@ -40,8 +40,8 @@
         <main class="@auth col-lg-10 col-md-9 @else col-12 @endauth p-3 p-lg-4">
             @auth
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <div class="text-muted small">ConnectÃ© : {{ auth()->user()->name }} ({{ auth()->user()->role }})</div>
-                    <form method="post" action="{{ route('logout') }}">@csrf<button class="btn btn-outline-danger btn-sm">DÃ©connexion</button></form>
+                    <div class="text-muted small">ConnectÃƒÂ© : {{ auth()->Utilisateur()->name }} ({{ auth()->Utilisateur()->role }})</div>
+                    <form method="post" action="{{ route('logout') }}">@csrf<button class="btn btn-outline-danger btn-sm">DÃƒÂ©connexion</button></form>
                 </div>
             @endauth
 
@@ -56,4 +56,5 @@
 </div>
 </body>
 </html>
+
 
