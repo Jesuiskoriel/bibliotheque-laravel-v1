@@ -1,4 +1,8 @@
-<?php
+﻿<?php
+/* METAL-EXPLAIN: Ce fichier fait une partie du boulot de l'app bibliothèque. 
+ * Version simple: ce fichier sert à éviter que tout parte en spaghetti 😄.
+ * Lisez les fonctions une par une: chacune fait un mini boulot précis.
+ */
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AuthorController;
@@ -33,3 +37,4 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
 Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/utilisateur', UserDashboardController::class)->name('user.dashboard');
 });
+

@@ -1,4 +1,8 @@
-<?php
+Ôªø<?php
+/* METAL-EXPLAIN: Ce fichier fait une partie du boulot de l'app biblioth√®que. 
+ * Version simple: ce fichier sert √† √©viter que tout parte en spaghetti üòÑ.
+ * Lisez les fonctions une par une: chacune fait un mini boulot pr√©cis.
+ */
 
 namespace App\Http\Controllers;
 
@@ -19,7 +23,7 @@ class MemberController extends Controller
             'phone'=>'nullable|string|max:50',
         ]);
         Member::create($data);
-        return redirect()->route('members.index')->with('success','AdhÈrent crÈÈ.');
+        return redirect()->route('members.index')->with('success','Adh√©rent cr√©√©.');
     }
 
     public function edit(Member $member) { return view('members.edit', compact('member')); }
@@ -33,12 +37,13 @@ class MemberController extends Controller
             'phone'=>'nullable|string|max:50',
         ]);
         $member->update($data);
-        return redirect()->route('members.index')->with('success','AdhÈrent mis ‡ jour.');
+        return redirect()->route('members.index')->with('success','Adh√©rent mis √† jour.');
     }
 
     public function destroy(Member $member)
     {
         $member->delete();
-        return back()->with('success','AdhÈrent supprimÈ.');
+        return back()->with('success','Adh√©rent supprim√©.');
     }
 }
+

@@ -1,4 +1,8 @@
-<?php
+﻿<?php
+/* METAL-EXPLAIN: Ce fichier fait une partie du boulot de l'app bibliothèque. 
+ * Version simple: ce fichier sert à éviter que tout parte en spaghetti 😄.
+ * Lisez les fonctions une par une: chacune fait un mini boulot précis.
+ */
 
 namespace App\Http\Controllers;
 
@@ -41,7 +45,7 @@ class LoanController extends Controller
         Loan::create($data);
         $book->decrement('stock_available');
 
-        return redirect()->route('loans.index')->with('success', 'Emprunt enregistr�.');
+        return redirect()->route('loans.index')->with('success', 'Emprunt enregistré.');
     }
 
     public function edit(Loan $loan)
@@ -74,7 +78,7 @@ class LoanController extends Controller
         }
 
         $loan->update($data);
-        return redirect()->route('loans.index')->with('success', 'Emprunt mis � jour.');
+        return redirect()->route('loans.index')->with('success', 'Emprunt mis à jour.');
     }
 
     public function destroy(Loan $loan)
@@ -84,6 +88,7 @@ class LoanController extends Controller
         }
         $loan->delete();
 
-        return back()->with('success', 'Emprunt supprim�.');
+        return back()->with('success', 'Emprunt supprimé.');
     }
 }
+

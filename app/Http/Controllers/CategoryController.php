@@ -1,4 +1,8 @@
-<?php
+Ôªø<?php
+/* METAL-EXPLAIN: Ce fichier fait une partie du boulot de l'app biblioth√®que. 
+ * Version simple: ce fichier sert √† √©viter que tout parte en spaghetti üòÑ.
+ * Lisez les fonctions une par une: chacune fait un mini boulot pr√©cis.
+ */
 
 namespace App\Http\Controllers;
 
@@ -14,7 +18,7 @@ class CategoryController extends Controller
     {
         $data = $request->validate(['name'=>'required|string|max:255|unique:categories,name','description'=>'nullable|string']);
         Category::create($data);
-        return redirect()->route('categories.index')->with('success','CatÈgorie crÈÈe.');
+        return redirect()->route('categories.index')->with('success','Cat√©gorie cr√©√©e.');
     }
 
     public function edit(Category $category) { return view('categories.edit', compact('category')); }
@@ -23,12 +27,13 @@ class CategoryController extends Controller
     {
         $data = $request->validate(['name'=>'required|string|max:255|unique:categories,name,'.$category->id,'description'=>'nullable|string']);
         $category->update($data);
-        return redirect()->route('categories.index')->with('success','CatÈgorie mise ‡ jour.');
+        return redirect()->route('categories.index')->with('success','Cat√©gorie mise √† jour.');
     }
 
     public function destroy(Category $category)
     {
         $category->delete();
-        return back()->with('success','CatÈgorie supprimÈe.');
+        return back()->with('success','Cat√©gorie supprim√©e.');
     }
 }
+

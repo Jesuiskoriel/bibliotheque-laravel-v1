@@ -1,4 +1,8 @@
-<?php
+﻿<?php
+/* METAL-EXPLAIN: Ce fichier fait une partie du boulot de l'app bibliothèque. 
+ * Version simple: ce fichier sert à éviter que tout parte en spaghetti 😄.
+ * Lisez les fonctions une par une: chacune fait un mini boulot précis.
+ */
 
 namespace App\Http\Controllers;
 
@@ -35,7 +39,7 @@ class BookController extends Controller
         ]);
         $data['stock_available'] = $data['stock_total'];
         Book::create($data);
-        return redirect()->route('books.index')->with('success','Livre cr��.');
+        return redirect()->route('books.index')->with('success','Livre créé.');
     }
 
     public function edit(Book $book)
@@ -60,12 +64,13 @@ class BookController extends Controller
         $delta = $data['stock_total'] - $book->stock_total;
         $data['stock_available'] = max(0, $book->stock_available + $delta);
         $book->update($data);
-        return redirect()->route('books.index')->with('success','Livre mis � jour.');
+        return redirect()->route('books.index')->with('success','Livre mis à jour.');
     }
 
     public function destroy(Book $book)
     {
         $book->delete();
-        return back()->with('success','Livre supprim�.');
+        return back()->with('success','Livre supprimé.');
     }
 }
+
