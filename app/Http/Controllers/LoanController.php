@@ -1,30 +1,29 @@
-﻿<?php
-/* METAL-EXPLAIN: Ce fichier fait une partie du boulot de l'app bibliothèque. 
- * Version simple: ce fichier sert à éviter que tout parte en spaghetti 😄.
- * Lisez les fonctions une par une: chacune fait un mini boulot précis.
- */
+<?php
+/* METAL-EXPLAIN: Ce contrôleur gère les emprunts. Version V2: la logique métier part dans LoanService. */
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreLoanRequest;
+use App\Http\Requests\UpdateLoanRequest;
 use App\Models\Book;
 use App\Models\Loan;
 use App\Models\Member;
-use Illuminate\Http\Request;
+use App\Services\LoanService;
 
 class LoanController extends Controller
 {
-    /**
-     * EXPLAIN-FUNC: Affiche la liste des éléments (page liste).
-     */
+    public function __construct(private LoanService $loanService)
+    {
+    }
+
+    /** EXPLAIN-FUNC: Affiche la liste des emprunts. */
     public function index()
     {
-        $loans = Loan::with(['book','member'])->latest('loaned_at')->paginate(12);
+        $loans = Loan::with(['book', 'member'])->latest('loaned_at')->paginate(12);
         return view('loans.index', compact('loans'));
     }
 
-    /**
-     * EXPLAIN-FUNC: Affiche le formulaire pour créer un nouvel élément.
-     */
+    /** EXPLAIN-FUNC: Affiche le formulaire de création d'un emprunt. */
     public function create()
     {
         return view('loans.create', [
@@ -33,80 +32,37 @@ class LoanController extends Controller
         ]);
     }
 
-    /**
-     * EXPLAIN-FUNC: Vérifie les données envoyées puis enregistre en base.
-     */
-    public function store(Request $request)
+    /** EXPLAIN-FUNC: Valide puis crée l'emprunt via le service métier. */
+    public function store(StoreLoanRequest $request)
     {
-        $data = $request->validate([
-            'book_id'=>'required|exists:books,id',
-            'member_id'=>'required|exists:members,id',
-            'loaned_at'=>'required|date',
-            'due_at'=>'required|date|after_or_equal:loaned_at',
-            'notes'=>'nullable|string',
-        ]);
-
-        $book = Book::findOrFail($data['book_id']);
-        if ($book->stock_available < 1) {
-            return back()->withErrors(['book_id' => 'Ce livre n\'est plus disponible.'])->withInput();
-        }
-
-        Loan::create($data);
-        $book->decrement('stock_available');
+        $this->loanService->createLoan($request->validated());
 
         return redirect()->route('loans.index')->with('success', 'Emprunt enregistré.');
     }
 
-    /**
-     * EXPLAIN-FUNC: Ouvre le formulaire d'édition avec les données existantes.
-     */
+    /** EXPLAIN-FUNC: Affiche le formulaire d'édition d'un emprunt. */
     public function edit(Loan $loan)
     {
         return view('loans.edit', [
-            'loan'=>$loan,
-            'books'=>Book::orderBy('title')->get(),
-            'members'=>Member::orderBy('last_name')->get(),
+            'loan' => $loan,
+            'books' => Book::orderBy('title')->get(),
+            'members' => Member::orderBy('last_name')->get(),
         ]);
     }
 
-    /**
-     * EXPLAIN-FUNC: Vérifie les nouvelles données puis met à jour la base.
-     */
-    public function update(Request $request, Loan $loan)
+    /** EXPLAIN-FUNC: Valide puis met à jour via le service métier. */
+    public function update(UpdateLoanRequest $request, Loan $loan)
     {
-        $data = $request->validate([
-            'book_id'=>'required|exists:books,id',
-            'member_id'=>'required|exists:members,id',
-            'loaned_at'=>'required|date',
-            'due_at'=>'required|date|after_or_equal:loaned_at',
-            'returned_at'=>'nullable|date|after_or_equal:loaned_at',
-            'notes'=>'nullable|string',
-        ]);
+        $this->loanService->updateLoan($loan, $request->validated());
 
-        $wasReturned = !is_null($loan->returned_at);
-        $isReturned = !empty($data['returned_at']);
-
-        if (!$wasReturned && $isReturned) {
-            $loan->book->increment('stock_available');
-        } elseif ($wasReturned && !$isReturned) {
-            $loan->book->decrement('stock_available');
-        }
-
-        $loan->update($data);
         return redirect()->route('loans.index')->with('success', 'Emprunt mis à jour.');
     }
 
-    /**
-     * EXPLAIN-FUNC: Supprime l'élément demandé (ou le marque supprimé).
-     */
+    /** EXPLAIN-FUNC: Supprime l'emprunt via le service métier. */
     public function destroy(Loan $loan)
     {
-        if (is_null($loan->returned_at)) {
-            $loan->book->increment('stock_available');
-        }
-        $loan->delete();
+        $this->loanService->deleteLoan($loan);
 
         return back()->with('success', 'Emprunt supprimé.');
     }
 }
-

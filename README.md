@@ -12,6 +12,20 @@ Application de gestion de bibliothèque (Laravel 12 + MySQL), avec séparation *
 - Gestion des retours via l’édition des emprunts (`returned_at`)
 - Seed de données de démo
 
+## Architecture V2 (plus simple à comprendre)
+Le projet suit une logique claire:
+1. **Route** → reçoit l'URL
+2. **Controller** → orchestre l'action
+3. **FormRequest** → valide les données utilisateur
+4. **Service** → applique la logique métier
+5. **Model** → lit/écrit en base MySQL
+6. **Blade View** → affiche à l'écran
+
+### Exemple concret
+- `StoreLoanRequest` et `UpdateLoanRequest` valident les formulaires d'emprunt.
+- `LoanService` gère les règles métier (stock, retour, suppression).
+- `LoanController` reste lisible et court.
+
 ## Stack
 - PHP 8.3+
 - Laravel 12

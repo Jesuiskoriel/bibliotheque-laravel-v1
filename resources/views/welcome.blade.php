@@ -1,4 +1,4 @@
-﻿{{-- METAL-EXPLAIN: Cette vue affiche l'interface. 
+{{-- METAL-EXPLAIN: Cette vue affiche l'interface. 
    Version simple: ce fichier dessine l'écran que l'utilisateur voit. --}}
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
