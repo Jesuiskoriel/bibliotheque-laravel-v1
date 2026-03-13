@@ -9,6 +9,9 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
+    /**
+     * EXPLAIN-FUNC: Migration UP = crée/ajoute la structure dans la base de données.
+     */
     public function up(): void
     {
         Schema::create('books', function (Blueprint $table) {
@@ -24,6 +27,9 @@ return new class extends Migration {
         });
     }
 
+    /**
+     * EXPLAIN-FUNC: Migration DOWN = annule ce que UP a fait (rollback).
+     */
     public function down(): void
     {
         Schema::dropIfExists('books');

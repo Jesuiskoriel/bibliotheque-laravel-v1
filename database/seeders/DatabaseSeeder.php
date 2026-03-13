@@ -15,6 +15,9 @@ use App\Models\User;
 
 class DatabaseSeeder extends Seeder
 {
+    /**
+     * EXPLAIN-FUNC: Seeder RUN = injecte des données de démonstration.
+     */
     public function run(): void
     {
         $roman = Category::create(['name' => 'Roman']);

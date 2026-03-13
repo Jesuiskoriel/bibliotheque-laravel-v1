@@ -11,9 +11,18 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    /**
+     * EXPLAIN-FUNC: Affiche la liste des éléments (page liste).
+     */
     public function index() { return view('categories.index', ['categories' => Category::latest()->paginate(10)]); }
+    /**
+     * EXPLAIN-FUNC: Affiche le formulaire pour créer un nouvel élément.
+     */
     public function create() { return view('categories.create'); }
 
+    /**
+     * EXPLAIN-FUNC: Vérifie les données envoyées puis enregistre en base.
+     */
     public function store(Request $request)
     {
         $data = $request->validate(['name'=>'required|string|max:255|unique:categories,name','description'=>'nullable|string']);
@@ -21,8 +30,14 @@ class CategoryController extends Controller
         return redirect()->route('categories.index')->with('success','Catégorie créée.');
     }
 
+    /**
+     * EXPLAIN-FUNC: Ouvre le formulaire d'édition avec les données existantes.
+     */
     public function edit(Category $category) { return view('categories.edit', compact('category')); }
 
+    /**
+     * EXPLAIN-FUNC: Vérifie les nouvelles données puis met à jour la base.
+     */
     public function update(Request $request, Category $category)
     {
         $data = $request->validate(['name'=>'required|string|max:255|unique:categories,name,'.$category->id,'description'=>'nullable|string']);
@@ -30,6 +45,9 @@ class CategoryController extends Controller
         return redirect()->route('categories.index')->with('success','Catégorie mise à jour.');
     }
 
+    /**
+     * EXPLAIN-FUNC: Supprime l'élément demandé (ou le marque supprimé).
+     */
     public function destroy(Category $category)
     {
         $category->delete();

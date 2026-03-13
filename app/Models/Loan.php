@@ -23,16 +23,25 @@ class Loan extends Model
         'returned_at' => 'date',
     ];
 
+    /**
+     * EXPLAIN-FUNC: Cette fonction 'book' fait une étape précise du flux applicatif.
+     */
     public function book(): BelongsTo
     {
         return $this->belongsTo(Book::class);
     }
 
+    /**
+     * EXPLAIN-FUNC: Cette fonction 'member' fait une étape précise du flux applicatif.
+     */
     public function member(): BelongsTo
     {
         return $this->belongsTo(Member::class);
     }
 
+    /**
+     * EXPLAIN-FUNC: Cette fonction 'isOverdue' fait une étape précise du flux applicatif.
+     */
     public function isOverdue(): bool
     {
         return is_null($this->returned_at) && Carbon::parse($this->due_at)->isPast();

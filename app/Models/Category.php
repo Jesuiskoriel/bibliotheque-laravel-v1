@@ -16,6 +16,9 @@ class Category extends Model
 
     protected $fillable = ['name', 'description'];
 
+    /**
+     * EXPLAIN-FUNC: Cette fonction 'books' fait une étape précise du flux applicatif.
+     */
     public function books(): HasMany
     {
         return $this->hasMany(Book::class);

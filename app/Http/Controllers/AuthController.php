@@ -12,11 +12,17 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
+    /**
+     * EXPLAIN-FUNC: Cette fonction 'showLogin' fait une étape précise du flux applicatif.
+     */
     public function showLogin()
     {
         return view('auth.login');
     }
 
+    /**
+     * EXPLAIN-FUNC: Vérifie email/mot de passe puis ouvre la session utilisateur.
+     */
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -35,11 +41,17 @@ class AuthController extends Controller
             : redirect('utilisateur');
     }
 
+    /**
+     * EXPLAIN-FUNC: Cette fonction 'showRegister' fait une étape précise du flux applicatif.
+     */
     public function showRegister()
     {
         return view('auth.register');
     }
 
+    /**
+     * EXPLAIN-FUNC: Crée un nouveau compte utilisateur avec validation.
+     */
     public function register(Request $request)
     {
         $data = $request->validate([
@@ -56,6 +68,9 @@ class AuthController extends Controller
         return redirect('utilisateur');
     }
 
+    /**
+     * EXPLAIN-FUNC: Ferme la session en cours pour déconnecter l'utilisateur.
+     */
     public function logout(Request $request)
     {
         Auth::logout();

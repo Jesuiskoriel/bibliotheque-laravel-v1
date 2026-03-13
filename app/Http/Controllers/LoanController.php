@@ -13,12 +13,18 @@ use Illuminate\Http\Request;
 
 class LoanController extends Controller
 {
+    /**
+     * EXPLAIN-FUNC: Affiche la liste des éléments (page liste).
+     */
     public function index()
     {
         $loans = Loan::with(['book','member'])->latest('loaned_at')->paginate(12);
         return view('loans.index', compact('loans'));
     }
 
+    /**
+     * EXPLAIN-FUNC: Affiche le formulaire pour créer un nouvel élément.
+     */
     public function create()
     {
         return view('loans.create', [
@@ -27,6 +33,9 @@ class LoanController extends Controller
         ]);
     }
 
+    /**
+     * EXPLAIN-FUNC: Vérifie les données envoyées puis enregistre en base.
+     */
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -48,6 +57,9 @@ class LoanController extends Controller
         return redirect()->route('loans.index')->with('success', 'Emprunt enregistré.');
     }
 
+    /**
+     * EXPLAIN-FUNC: Ouvre le formulaire d'édition avec les données existantes.
+     */
     public function edit(Loan $loan)
     {
         return view('loans.edit', [
@@ -57,6 +69,9 @@ class LoanController extends Controller
         ]);
     }
 
+    /**
+     * EXPLAIN-FUNC: Vérifie les nouvelles données puis met à jour la base.
+     */
     public function update(Request $request, Loan $loan)
     {
         $data = $request->validate([
@@ -81,6 +96,9 @@ class LoanController extends Controller
         return redirect()->route('loans.index')->with('success', 'Emprunt mis à jour.');
     }
 
+    /**
+     * EXPLAIN-FUNC: Supprime l'élément demandé (ou le marque supprimé).
+     */
     public function destroy(Loan $loan)
     {
         if (is_null($loan->returned_at)) {

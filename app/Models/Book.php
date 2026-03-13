@@ -19,16 +19,25 @@ class Book extends Model
         'title', 'isbn', 'published_year', 'stock_total', 'stock_available', 'author_id', 'category_id',
     ];
 
+    /**
+     * EXPLAIN-FUNC: Cette fonction 'author' fait une étape précise du flux applicatif.
+     */
     public function author(): BelongsTo
     {
         return $this->belongsTo(Author::class);
     }
 
+    /**
+     * EXPLAIN-FUNC: Cette fonction 'category' fait une étape précise du flux applicatif.
+     */
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
 
+    /**
+     * EXPLAIN-FUNC: Cette fonction 'loans' fait une étape précise du flux applicatif.
+     */
     public function loans(): HasMany
     {
         return $this->hasMany(Loan::class);

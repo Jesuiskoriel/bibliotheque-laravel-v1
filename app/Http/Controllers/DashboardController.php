@@ -12,6 +12,9 @@ use App\Models\Member;
 
 class DashboardController extends Controller
 {
+    /**
+     * EXPLAIN-FUNC: Cette fonction '__invoke' fait une étape précise du flux applicatif.
+     */
     public function __invoke()
     {
         $stats = [

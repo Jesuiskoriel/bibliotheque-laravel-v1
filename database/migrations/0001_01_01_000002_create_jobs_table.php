@@ -13,6 +13,9 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+    /**
+     * EXPLAIN-FUNC: Migration UP = crée/ajoute la structure dans la base de données.
+     */
     public function up(): void
     {
         Schema::create('jobs', function (Blueprint $table) {
@@ -53,6 +56,9 @@ return new class extends Migration
 
     /**
      * Reverse the migrations.
+     */
+    /**
+     * EXPLAIN-FUNC: Migration DOWN = annule ce que UP a fait (rollback).
      */
     public function down(): void
     {

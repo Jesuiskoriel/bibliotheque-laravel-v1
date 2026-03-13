@@ -11,6 +11,9 @@ use App\Models\Loan;
 
 class UserDashboardController extends Controller
 {
+    /**
+     * EXPLAIN-FUNC: Cette fonction '__invoke' fait une étape précise du flux applicatif.
+     */
     public function __invoke()
     {
         $books = Book::with(['author', 'category'])->orderBy('title')->take(12)->get();

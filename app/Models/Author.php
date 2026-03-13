@@ -16,6 +16,9 @@ class Author extends Model
 
     protected $fillable = ['name', 'bio'];
 
+    /**
+     * EXPLAIN-FUNC: Cette fonction 'books' fait une étape précise du flux applicatif.
+     */
     public function books(): HasMany
     {
         return $this->hasMany(Book::class);

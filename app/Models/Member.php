@@ -16,11 +16,17 @@ class Member extends Model
 
     protected $fillable = ['first_name', 'last_name', 'email', 'phone'];
 
+    /**
+     * EXPLAIN-FUNC: Cette fonction 'loans' fait une étape précise du flux applicatif.
+     */
     public function loans(): HasMany
     {
         return $this->hasMany(Loan::class);
     }
 
+    /**
+     * EXPLAIN-FUNC: Cette fonction 'getFullNameAttribute' fait une étape précise du flux applicatif.
+     */
     public function getFullNameAttribute(): string
     {
         return trim("{$this->first_name} {$this->last_name}");

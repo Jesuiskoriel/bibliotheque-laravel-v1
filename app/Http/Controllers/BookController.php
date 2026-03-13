@@ -13,12 +13,18 @@ use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
+    /**
+     * EXPLAIN-FUNC: Affiche la liste des éléments (page liste).
+     */
     public function index()
     {
         $books = Book::with(['author','category'])->latest()->paginate(10);
         return view('books.index', compact('books'));
     }
 
+    /**
+     * EXPLAIN-FUNC: Affiche le formulaire pour créer un nouvel élément.
+     */
     public function create()
     {
         return view('books.create', [
@@ -27,6 +33,9 @@ class BookController extends Controller
         ]);
     }
 
+    /**
+     * EXPLAIN-FUNC: Vérifie les données envoyées puis enregistre en base.
+     */
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -42,6 +51,9 @@ class BookController extends Controller
         return redirect()->route('books.index')->with('success','Livre créé.');
     }
 
+    /**
+     * EXPLAIN-FUNC: Ouvre le formulaire d'édition avec les données existantes.
+     */
     public function edit(Book $book)
     {
         return view('books.edit', [
@@ -51,6 +63,9 @@ class BookController extends Controller
         ]);
     }
 
+    /**
+     * EXPLAIN-FUNC: Vérifie les nouvelles données puis met à jour la base.
+     */
     public function update(Request $request, Book $book)
     {
         $data = $request->validate([
@@ -67,6 +82,9 @@ class BookController extends Controller
         return redirect()->route('books.index')->with('success','Livre mis à jour.');
     }
 
+    /**
+     * EXPLAIN-FUNC: Supprime l'élément demandé (ou le marque supprimé).
+     */
     public function destroy(Book $book)
     {
         $book->delete();
