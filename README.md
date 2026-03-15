@@ -32,14 +32,46 @@ Le projet suit une logique claire :
 - Laravel 12
 - MySQL 8+
 
-## Installation
+## Installation sur macOS
+
+### 1) Pré-requis à installer (Homebrew)
+Si Homebrew n'est pas installé :
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+Installer les dépendances :
+```bash
+brew install php composer mysql
+```
+
+Démarrer MySQL :
+```bash
+brew services start mysql
+```
+
+Vérifier les versions :
+```bash
+php -v
+composer -V
+mysql --version
+```
+
+### 2) Installer le projet
+Depuis le dossier du projet :
 ```bash
 cp .env.example .env
 composer install
 php artisan key:generate
 ```
 
-Configurer la base dans `.env` :
+### 3) Configurer la base de données
+Créer la base MySQL :
+```bash
+mysql -u root -e "CREATE DATABASE IF NOT EXISTS bibliotheque_laravel_v1 CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+```
+
+Configurer `.env` :
 ```env
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
@@ -49,11 +81,33 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-Créer la base MySQL `bibliotheque_laravel_v1`, puis :
+### 4) Initialiser l'application
 ```bash
 php artisan migrate --seed
 php artisan serve
 ```
+
+Application disponible sur :
+`http://127.0.0.1:8000/login`
+
+## Dépannage macOS (rapide)
+
+- Erreur `SQLSTATE[HY000] [2002]` : MySQL n'est pas démarré.
+  ```bash
+  brew services start mysql
+  ```
+
+- Erreur `Class "PDO" not found` ou `could not find driver` : extension MySQL absente.
+  Vérifier que PHP est bien celui de Homebrew :
+  ```bash
+  which php
+  php -m | grep pdo_mysql
+  ```
+
+- Erreur de cache/config Laravel :
+  ```bash
+  php artisan optimize:clear
+  ```
 
 ## Accès
 - URL : `http://127.0.0.1:8000/login`
