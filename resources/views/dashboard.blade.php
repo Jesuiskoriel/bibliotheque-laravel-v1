@@ -1,11 +1,11 @@
-﻿{{-- Cette vue affiche l'interface. 
-   Version simple: ce fichier dessine l'Ã©cran que l'utilisateur voit. --}}
+﻿{{-- Cette vue affiche l'interface.
+   Version simple: ce fichier dessine l'écran que l'utilisateur voit. --}}
 @extends('layouts.app')
 @section('content')
 <h1 class="h3 mb-3">Tableau de bord gestionnaire</h1>
 <div class="row g-3 mb-4">
     <div class="col-md-3"><div class="card card-soft"><div class="card-body"><div class="text-muted">Livres</div><div class="fs-3 fw-bold">{{ $stats['books'] }}</div></div></div></div>
-    <div class="col-md-3"><div class="card card-soft"><div class="card-body"><div class="text-muted">AdhÃƒÂ©rents</div><div class="fs-3 fw-bold">{{ $stats['members'] }}</div></div></div></div>
+    <div class="col-md-3"><div class="card card-soft"><div class="card-body"><div class="text-muted">Utilisateurs</div><div class="fs-3 fw-bold">{{ $stats['users'] }}</div></div></div></div>
     <div class="col-md-3"><div class="card card-soft"><div class="card-body"><div class="text-muted">Emprunts actifs</div><div class="fs-3 fw-bold">{{ $stats['active_loans'] }}</div></div></div></div>
     <div class="col-md-3"><div class="card card-soft"><div class="card-body"><div class="text-muted">Retards</div><div class="fs-3 fw-bold text-danger">{{ $stats['overdue_loans'] }}</div></div></div></div>
 </div>
@@ -14,12 +14,12 @@
     <div class="card-header bg-white fw-semibold">Derniers emprunts</div>
     <div class="table-responsive">
         <table class="table mb-0">
-            <thead><tr><th>Livre</th><th>AdhÃƒÂ©rent</th><th>Date prÃƒÂªt</th><th>Retour prÃƒÂ©vu</th><th>Statut</th></tr></thead>
+            <thead><tr><th>Livre</th><th>Utilisateur</th><th>Date prêt</th><th>Retour prévu</th><th>Statut</th></tr></thead>
             <tbody>
             @forelse($recentLoans as $loan)
                 <tr>
                     <td>{{ $loan->book->title }}</td>
-                    <td>{{ $loan->member->full_name }}</td>
+                    <td>{{ $loan->user?->name ?? 'Utilisateur supprimé' }}</td>
                     <td>{{ $loan->loaned_at->format('d/m/Y') }}</td>
                     <td>{{ $loan->due_at->format('d/m/Y') }}</td>
                     <td>
@@ -36,4 +36,3 @@
     </div>
 </div>
 @endsection
-

@@ -15,7 +15,7 @@ class StoreLoanRequest extends FormRequest
     {
         return [
             'book_id' => 'required|exists:books,id',
-            'member_id' => 'required|exists:members,id',
+            'user_id' => 'required|exists:users,id',
             'loaned_at' => 'required|date',
             'due_at' => 'required|date|after_or_equal:loaned_at',
             'notes' => 'nullable|string',

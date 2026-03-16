@@ -7,7 +7,7 @@ use App\Http\Requests\StoreLoanRequest;
 use App\Http\Requests\UpdateLoanRequest;
 use App\Models\Book;
 use App\Models\Loan;
-use App\Models\Member;
+use App\Models\User;
 use App\Services\LoanService;
 
 class LoanController extends Controller
@@ -19,7 +19,7 @@ class LoanController extends Controller
     /** Affiche la liste des emprunts. */
     public function index()
     {
-        $loans = Loan::with(['book', 'member'])->latest('loaned_at')->paginate(12);
+        $loans = Loan::with(['book', 'user'])->latest('loaned_at')->paginate(12);
         return view('loans.index', compact('loans'));
     }
 
@@ -28,7 +28,7 @@ class LoanController extends Controller
     {
         return view('loans.create', [
             'books' => Book::where('stock_available', '>', 0)->orderBy('title')->get(),
-            'members' => Member::orderBy('last_name')->get(),
+            'users' => User::where('role', 'user')->orderBy('name')->get(),
         ]);
     }
 
@@ -46,7 +46,7 @@ class LoanController extends Controller
         return view('loans.edit', [
             'loan' => $loan,
             'books' => Book::orderBy('title')->get(),
-            'members' => Member::orderBy('last_name')->get(),
+            'users' => User::where('role', 'user')->orderBy('name')->get(),
         ]);
     }
 

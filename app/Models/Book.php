@@ -42,5 +42,9 @@ class Book extends Model
     {
         return $this->hasMany(Loan::class);
     }
-}
 
+    public function getIsAvailableAttribute(): bool
+    {
+        return $this->stock_available > 0;
+    }
+}

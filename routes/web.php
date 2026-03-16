@@ -10,8 +10,8 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoanController;
-use App\Http\Controllers\MemberController;
 use App\Http\Controllers\UserDashboardController;
+use App\Http\Controllers\UserLoanController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [AuthController::class, 'showLogin'])->name('home');
@@ -30,11 +30,11 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::resource('authors', AuthorController::class)->except(['show']);
     Route::resource('categories', CategoryController::class)->except(['show']);
     Route::resource('books', BookController::class)->except(['show']);
-    Route::resource('members', MemberController::class)->except(['show']);
     Route::resource('loans', LoanController::class)->except(['show']);
 });
 
 Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/utilisateur', UserDashboardController::class)->name('user.dashboard');
+    Route::post('/utilisateur/emprunts', [UserLoanController::class, 'store'])->name('user.loans.store');
+    Route::patch('/utilisateur/emprunts/{loan}/retour', [UserLoanController::class, 'markReturned'])->name('user.loans.return');
 });
-

@@ -8,7 +8,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\Loan;
-use App\Models\Member;
+use App\Models\User;
 
 class DashboardController extends Controller
 {
@@ -19,12 +19,12 @@ class DashboardController extends Controller
     {
         $stats = [
             'books' => Book::count(),
-            'members' => Member::count(),
+            'users' => User::where('role', 'user')->count(),
             'active_loans' => Loan::whereNull('returned_at')->count(),
             'overdue_loans' => Loan::whereNull('returned_at')->whereDate('due_at', '<', now())->count(),
         ];
 
-        $recentLoans = Loan::with(['book', 'member'])
+        $recentLoans = Loan::with(['book', 'user'])
             ->latest('loaned_at')
             ->take(8)
             ->get();
@@ -32,4 +32,3 @@ class DashboardController extends Controller
         return view('dashboard', compact('stats', 'recentLoans'));
     }
 }
-

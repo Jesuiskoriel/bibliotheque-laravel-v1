@@ -19,10 +19,9 @@ class RoleMiddleware
         }
 
         if (auth()->user()->role !== $role) {
-            abort(403, 'AccÃ¨s interdit');
+            abort(403, 'Accès interdit');
         }
 
         return $next($request);
     }
 }
-

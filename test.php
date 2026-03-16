@@ -1,0 +1,1 @@
+echo "<?php echo 'MAMP_OK';" > /Applications/MAMP/htdocs/test.php
