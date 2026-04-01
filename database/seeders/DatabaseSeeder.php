@@ -84,6 +84,14 @@ class DatabaseSeeder extends Seeder
             );
         }
 
+        Book::factory()
+            ->count(50)
+            ->state(fn () => [
+                'author_id' => $authors->random()->id,
+                'category_id' => $categories->random()->id,
+            ])
+            ->create();
+
         $members = [
             ['first_name' => 'Jean', 'last_name' => 'Dupont', 'email' => 'jean@example.com', 'phone' => '0600000001'],
             ['first_name' => 'Lina', 'last_name' => 'Martin', 'email' => 'lina@example.com', 'phone' => '0600000002'],
@@ -125,5 +133,9 @@ class DatabaseSeeder extends Seeder
                 'role' => 'user',
             ]
         );
+
+        User::factory()
+            ->count(30)
+            ->create(['role' => 'user']);
     }
 }

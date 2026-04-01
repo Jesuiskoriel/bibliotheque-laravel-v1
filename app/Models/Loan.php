@@ -15,7 +15,7 @@ class Loan extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['book_id', 'user_id', 'loaned_at', 'due_at', 'returned_at', 'notes'];
+    protected $fillable = ['book_id', 'member_id', 'user_id', 'loaned_at', 'due_at', 'returned_at', 'notes'];
 
     protected $casts = [
         'loaned_at' => 'date',
@@ -33,6 +33,14 @@ class Loan extends Model
 
     /**
      * Cette fonction 'member' fait une étape précise du flux applicatif.
+     */
+    public function member(): BelongsTo
+    {
+        return $this->belongsTo(Member::class);
+    }
+
+    /**
+     * Cette fonction 'user' fait une étape précise du flux applicatif.
      */
     public function user(): BelongsTo
     {

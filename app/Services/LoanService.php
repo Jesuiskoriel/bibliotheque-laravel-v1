@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Book;
 use App\Models\Loan;
+use App\Models\Member;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
@@ -15,6 +16,9 @@ class LoanService
     public function createLoan(array $data): Loan
     {
         return DB::transaction(function () use ($data) {
+            $user = User::query()->findOrFail($data['user_id']);
+            $member = $this->resolveMemberForUser($user);
+
             $duplicateActiveLoan = Loan::query()
                 ->where('book_id', $data['book_id'])
                 ->where('user_id', $data['user_id'])
@@ -31,7 +35,10 @@ class LoanService
                 abort(422, "Ce livre n'est plus disponible.");
             }
 
-            $loan = Loan::create($data);
+            $loan = Loan::create([
+                ...$data,
+                'member_id' => $member->id,
+            ]);
             $book->decrement('stock_available');
 
             return $loan;
@@ -65,6 +72,11 @@ class LoanService
     public function updateLoan(Loan $loan, array $data): Loan
     {
         return DB::transaction(function () use ($loan, $data) {
+            if (isset($data['user_id'])) {
+                $user = User::query()->findOrFail($data['user_id']);
+                $data['member_id'] = $this->resolveMemberForUser($user)->id;
+            }
+
             $loan->load('book');
             $originalBook = Book::lockForUpdate()->findOrFail($loan->book_id);
             $targetBook = Book::lockForUpdate()->findOrFail($data['book_id']);
@@ -109,7 +121,7 @@ class LoanService
             $loan->update(['returned_at' => now()->toDateString()]);
             $loan->book->increment('stock_available');
 
-            return $loan->fresh(['book', 'member']);
+            return $loan->fresh(['book', 'user']);
         });
     }
 
@@ -127,5 +139,50 @@ class LoanService
 
             $loan->delete();
         });
+    }
+
+    private function resolveMemberForUser(User $user): Member
+    {
+        [$firstName, $lastName] = $this->splitName($user->name);
+
+        $member = Member::query()->firstOrCreate(
+            ['email' => $user->email],
+            [
+                'first_name' => $firstName,
+                'last_name' => $lastName,
+                'phone' => null,
+                'user_id' => $user->id,
+            ]
+        );
+
+        if ((int) $member->user_id !== (int) $user->id) {
+            $member->update(['user_id' => $user->id]);
+        }
+
+        return $member;
+    }
+
+    /**
+     * Découpe un nom affiché en prénom/nom minimal pour alimenter Member.
+     *
+     * @return array{0: string, 1: string}
+     */
+    private function splitName(string $fullName): array
+    {
+        $parts = preg_split('/\s+/', trim($fullName)) ?: [];
+        $parts = array_values(array_filter($parts, fn (string $part) => $part !== ''));
+
+        if ($parts === []) {
+            return ['Utilisateur', ''];
+        }
+
+        if (count($parts) === 1) {
+            return [$parts[0], ''];
+        }
+
+        $firstName = array_shift($parts);
+        $lastName = implode(' ', $parts);
+
+        return [$firstName, $lastName];
     }
 }
