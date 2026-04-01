@@ -28,6 +28,8 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'is_blocked',
+        'blocked_at',
     ];
 
     /**
@@ -50,6 +52,8 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_blocked' => 'boolean',
+            'blocked_at' => 'datetime',
         ];
     }
 

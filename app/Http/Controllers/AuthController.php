@@ -34,6 +34,14 @@ class AuthController extends Controller
             return back()->withErrors(['email' => 'Identifiants invalides'])->onlyInput('email');
         }
 
+        if (Auth::user()->is_blocked) {
+            Auth::logout();
+
+            return back()
+                ->withErrors(['email' => 'Compte bloqué. Contactez un administrateur.'])
+                ->onlyInput('email');
+        }
+
         $request->session()->regenerate();
 
         return Auth::user()->role === 'admin'

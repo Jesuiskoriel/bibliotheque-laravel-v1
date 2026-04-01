@@ -49,6 +49,22 @@ class UserDashboardController extends Controller
             ->take(10)
             ->get();
 
-        return view('user.dashboard', compact('books', 'communityLoans', 'myActiveLoans', 'myLoanHistory'));
+        $myTotalBorrowed = Loan::query()
+            ->where('user_id', $request->user()->id)
+            ->count();
+
+        $myReturnedLoans = Loan::query()
+            ->where('user_id', $request->user()->id)
+            ->whereNotNull('returned_at')
+            ->count();
+
+        return view('user.dashboard', compact(
+            'books',
+            'communityLoans',
+            'myActiveLoans',
+            'myLoanHistory',
+            'myTotalBorrowed',
+            'myReturnedLoans'
+        ));
     }
 }

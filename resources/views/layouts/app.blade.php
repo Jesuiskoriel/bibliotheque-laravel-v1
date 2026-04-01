@@ -28,6 +28,7 @@
                         <a class="nav-link" href="{{ route('books.index') }}">Livres</a>
                         <a class="nav-link" href="{{ route('authors.index') }}">Auteurs</a>
                         <a class="nav-link" href="{{ route('categories.index') }}">Catégories</a>
+                        <a class="nav-link" href="{{ route('admin.users.index') }}">Utilisateurs</a>
                         <a class="nav-link" href="{{ route('loans.index') }}">Emprunts/Retours</a>
                     @else
                         <a class="nav-link" href="{{ route('user.dashboard') }}">Espace utilisateur</a>

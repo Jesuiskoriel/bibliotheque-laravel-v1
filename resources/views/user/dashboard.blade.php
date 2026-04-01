@@ -19,7 +19,7 @@
 @endif
 
 <div class="row g-3 mb-4">
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div class="card card-soft h-100">
             <div class="card-body">
                 <div class="text-muted small mb-1">Livres disponibles</div>
@@ -28,7 +28,16 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
+        <div class="card card-soft h-100">
+            <div class="card-body">
+                <div class="text-muted small mb-1">Livres déjà empruntés</div>
+                <div class="display-6 fw-semibold">{{ $myTotalBorrowed }}</div>
+                <div class="text-muted">sur tout votre historique</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
         <div class="card card-soft h-100">
             <div class="card-body">
                 <div class="text-muted small mb-1">Mes emprunts actifs</div>
@@ -37,12 +46,12 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div class="card card-soft h-100">
             <div class="card-body">
-                <div class="text-muted small mb-1">Compte emprunteur</div>
-                <div class="fw-semibold">{{ auth()->user()->name }}</div>
-                <div class="text-muted">{{ auth()->user()->email }}</div>
+                <div class="text-muted small mb-1">Livres rendus</div>
+                <div class="display-6 fw-semibold">{{ $myReturnedLoans }}</div>
+                <div class="text-muted">emprunts terminés</div>
             </div>
         </div>
     </div>

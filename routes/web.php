@@ -5,6 +5,7 @@
  */
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
@@ -27,6 +28,9 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->n
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', DashboardController::class)->name('admin.dashboard');
+    Route::get('/users', [AdminUserController::class, 'index'])->name('admin.users.index');
+    Route::get('/users/{user}', [AdminUserController::class, 'show'])->name('admin.users.show');
+    Route::patch('/users/{user}/toggle-block', [AdminUserController::class, 'toggleBlock'])->name('admin.users.toggle-block');
     Route::resource('authors', AuthorController::class)->except(['show']);
     Route::resource('categories', CategoryController::class)->except(['show']);
     Route::resource('books', BookController::class)->except(['show']);
