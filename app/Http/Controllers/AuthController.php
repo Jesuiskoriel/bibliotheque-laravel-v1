@@ -38,7 +38,7 @@ class AuthController extends Controller
             Auth::logout();
 
             return back()
-                ->withErrors(['email' => 'Compte bloqué. Contactez un administrateur.'])
+                ->withErrors(['email' => 'Compte banni. Contactez un administrateur.'])
                 ->onlyInput('email');
         }
 

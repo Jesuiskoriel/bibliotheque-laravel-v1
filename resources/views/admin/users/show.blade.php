@@ -7,12 +7,25 @@
         <h1 class="h3 mb-0 mt-1">{{ $user->name }}</h1>
         <div class="text-muted">{{ $user->email }}</div>
     </div>
-    <div>
+    <div class="text-end">
         @if($user->is_blocked)
-            <span class="badge text-bg-danger">Compte bloqué</span>
+            <span class="badge text-bg-danger">Compte banni</span>
         @else
             <span class="badge text-bg-success">Compte actif</span>
         @endif
+
+        @if($user->blocked_at)
+            <div class="small text-muted mt-1">Depuis le {{ $user->blocked_at->format('d/m/Y H:i') }}</div>
+        @endif
+
+        <form method="post" action="{{ route('admin.users.toggle-block', $user) }}" class="mt-2">
+            @csrf
+            @method('PATCH')
+            <button class="btn btn-sm {{ $user->is_blocked ? 'btn-outline-success' : 'btn-outline-danger' }}"
+                onclick="return confirm('Confirmer cette action sur le compte ?')">
+                {{ $user->is_blocked ? 'Débannir' : 'Bannir' }}
+            </button>
+        </form>
     </div>
 </div>
 

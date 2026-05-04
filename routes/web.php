@@ -37,7 +37,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::resource('loans', LoanController::class)->except(['show']);
 });
 
-Route::middleware(['auth', 'role:user'])->group(function () {
+Route::middleware(['auth', 'role:user', 'not_blocked'])->group(function () {
     Route::get('/utilisateur', UserDashboardController::class)->name('user.dashboard');
     Route::post('/utilisateur/emprunts', [UserLoanController::class, 'store'])->name('user.loans.store');
     Route::patch('/utilisateur/emprunts/{loan}/retour', [UserLoanController::class, 'markReturned'])->name('user.loans.return');

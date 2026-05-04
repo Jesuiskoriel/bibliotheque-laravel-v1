@@ -20,12 +20,11 @@ class BookFactory extends Factory
     public function definition(): array
     {
         $stockTotal = fake()->numberBetween(1, 12);
-        $currentYear = (int) date('Y');
 
         return [
             'title' => ucfirst(fake()->words(fake()->numberBetween(2, 5), true)),
             'isbn' => fake()->unique()->numerify('978##########'),
-            'published_year' => fake()->numberBetween(1900, $currentYear),
+            'published_year' => fake()->numberBetween(1401, 1500),
             'stock_total' => $stockTotal,
             'stock_available' => fake()->numberBetween(0, $stockTotal),
             'author_id' => Author::query()->inRandomOrder()->value('id') ?? Author::factory(),
