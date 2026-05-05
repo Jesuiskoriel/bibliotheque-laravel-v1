@@ -1,22 +1,36 @@
-﻿{{-- Cette vue affiche l'interface.
-   Version simple: ce fichier dessine l'écran que l'utilisateur voit. --}}
 @extends('layouts.app')
+@section('title', 'Créer un compte')
 @section('content')
-<div class="mx-auto" style="max-width: 480px;">
-<p class="text-uppercase text-muted small mb-1">Créer un compte</p>
-<h1 class="h3 mb-2">Inscription utilisateur</h1>
-<p class="text-muted mb-4">Le compte créé sera automatiquement lié à une fiche adhérent pour emprunter des livres.</p>
-<form method="post" action="{{ route('register.post') }}" class="card card-body">
+
+<div style="margin-bottom:32px;">
+    <h1 style="font-family:'DM Serif Display',Georgia,serif;font-size:1.9rem;margin:0 0 6px;color:var(--text);">Créer un compte.</h1>
+    <p style="font-size:.9rem;color:var(--muted);margin:0;">Le compte créé sera automatiquement associé à une fiche adhérent.</p>
+</div>
+
+<form method="post" action="{{ route('register.post') }}">
     @csrf
-    <input class="form-control mb-2" name="name" placeholder="Nom" value="{{ old('name') }}" required>
-    <input class="form-control mb-2" type="email" name="email" placeholder="Email" value="{{ old('email') }}" required>
-    <input class="form-control mb-2" type="password" name="password" placeholder="Mot de passe" required>
-    <input class="form-control mb-3" type="password" name="password_confirmation" placeholder="Confirmer mot de passe" required>
-    <button class="btn btn-dark">Créer mon compte</button>
+    <div class="mb-3">
+        <label class="form-label" for="name">Nom complet</label>
+        <input class="form-control" id="name" name="name" type="text" value="{{ old('name') }}" placeholder="Jean Dupont" autocomplete="name" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="email">Adresse e-mail</label>
+        <input class="form-control" id="email" name="email" type="email" value="{{ old('email') }}" placeholder="vous@exemple.com" autocomplete="email" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="password">Mot de passe</label>
+        <input class="form-control" id="password" name="password" type="password" placeholder="••••••••" autocomplete="new-password" required>
+    </div>
+    <div class="mb-4">
+        <label class="form-label" for="password_confirmation">Confirmer le mot de passe</label>
+        <input class="form-control" id="password_confirmation" name="password_confirmation" type="password" placeholder="••••••••" autocomplete="new-password" required>
+    </div>
+    <button class="btn btn-dark w-100" type="submit">Créer mon compte</button>
 </form>
-<div class="text-center mt-3">
-    <span class="text-muted">Déjà inscrit ?</span>
-    <a class="btn btn-link" href="{{ route('login') }}">Se connecter</a>
-</div>
-</div>
+
+<p style="text-align:center;margin-top:20px;font-size:.85rem;color:var(--muted);">
+    Déjà inscrit ?
+    <a href="{{ route('login') }}" style="color:var(--ink);font-weight:500;text-decoration:none;">Se connecter</a>
+</p>
+
 @endsection
